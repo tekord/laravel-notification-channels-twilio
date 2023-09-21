@@ -86,12 +86,15 @@ class TwilioChannel
      */
     protected function getTo($notifiable, $notification = null)
     {
-        if ($notifiable->routeNotificationFor(self::class, $notification)) {
-            return $notifiable->routeNotificationFor(self::class, $notification);
+        if ($route = $notifiable->routeNotificationFor(self::class, $notification)) {
+            return $route;
         }
-        if ($notifiable->routeNotificationFor('twilio', $notification)) {
-            return $notifiable->routeNotificationFor('twilio', $notification);
+
+        if ($route = $notifiable->routeNotificationFor('twilio', $notification)) {
+            return $route;
         }
+
+        // Extract to class field
         if (isset($notifiable->phone_number)) {
             return $notifiable->phone_number;
         }
