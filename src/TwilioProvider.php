@@ -55,9 +55,11 @@ class TwilioProvider extends ServiceProvider implements DeferrableProvider
             );
         });
 
+        $this->app->singleton(MessageSenderInterface::class, Twilio::class);
+
         $this->app->singleton(TwilioChannel::class, function (Application $app) {
             return new TwilioChannel(
-                $app->make(Twilio::class),
+                $app->make(MessageSenderInterface::class),
                 $app->make(Dispatcher::class)
             );
         });

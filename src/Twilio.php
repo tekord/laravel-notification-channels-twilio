@@ -6,19 +6,19 @@ use NotificationChannels\Twilio\Exceptions\CouldNotSendNotification;
 use Twilio\Exceptions\TwilioException;
 use Twilio\Rest\Api\V2010\Account\CallInstance;
 use Twilio\Rest\Api\V2010\Account\MessageInstance;
-use Twilio\Rest\Client as TwilioService;
+use Twilio\Rest\Client as TwilioRectClient;
 
 class Twilio implements MessageSenderInterface
 {
-    /** @var TwilioService */
-    protected $twilioService;
+    /** @var TwilioRectClient */
+    protected $twilioRestClient;
 
     /** @var TwilioConfig */
     public $config;
 
-    public function __construct(TwilioService $twilioService, TwilioConfig $config)
+    public function __construct(TwilioRectClient $twilioService, TwilioConfig $config)
     {
-        $this->twilioService = $twilioService;
+        $this->twilioRestClient = $twilioService;
         $this->config = $config;
     }
 
@@ -104,7 +104,7 @@ class Twilio implements MessageSenderInterface
             ]);
         }
 
-        return $this->twilioService->messages->create($to, $params);
+        return $this->twilioRestClient->messages->create($to, $params);
     }
 
     /**
@@ -142,7 +142,7 @@ class Twilio implements MessageSenderInterface
             throw CouldNotSendNotification::missingFrom();
         }
 
-        return $this->twilioService->calls->create(
+        return $this->twilioRestClient->calls->create(
             $to,
             $from,
             $params

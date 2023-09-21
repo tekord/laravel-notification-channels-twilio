@@ -11,7 +11,7 @@ use NotificationChannels\Twilio\Exceptions\CouldNotSendNotification;
 class TwilioChannel
 {
     /**
-     * @var Twilio
+     * @var MessageSenderInterface
      */
     protected $twilio;
 
@@ -23,10 +23,10 @@ class TwilioChannel
     /**
      * TwilioChannel constructor.
      *
-     * @param Twilio $twilio
+     * @param MessageSenderInterface $twilio
      * @param Dispatcher $events
      */
-    public function __construct(Twilio $twilio, Dispatcher $events)
+    public function __construct(MessageSenderInterface $twilio, Dispatcher $events)
     {
         $this->twilio = $twilio;
         $this->events = $events;
