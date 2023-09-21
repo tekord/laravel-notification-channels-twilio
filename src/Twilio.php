@@ -8,7 +8,7 @@ use Twilio\Rest\Api\V2010\Account\CallInstance;
 use Twilio\Rest\Api\V2010\Account\MessageInstance;
 use Twilio\Rest\Client as TwilioService;
 
-class Twilio
+class Twilio implements MessageSenderInterface
 {
     /** @var TwilioService */
     protected $twilioService;
