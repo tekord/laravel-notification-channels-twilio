@@ -57,7 +57,7 @@ class TwilioChannel
             }
 
             return $this->twilio->sendMessage($message, $to, $useSender);
-        } catch (Exception $exception) {
+        } catch (\Throwable $exception) {
             $event = new NotificationFailed(
                 $notifiable,
                 $notification,
@@ -67,7 +67,7 @@ class TwilioChannel
 
             $this->events->dispatch($event);
 
-            if ($this->twilio->config->isIgnoredErrorCode($exception->getCode())) {
+            if ($this->twilio->getConfig()?->isIgnoredErrorCode($exception->getCode())) {
                 return;
             }
 

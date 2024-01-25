@@ -8,4 +8,6 @@ interface MessageSenderInterface {
         ?string $to,
         bool $useAlphanumericSender = false
     );
+
+    public function getConfig(): ?TwilioConfig;
 }

@@ -50,6 +50,10 @@ class Twilio implements MessageSenderInterface
         throw CouldNotSendNotification::invalidMessageObject($message);
     }
 
+    public function getConfig(): ?TwilioConfig {
+        return $this->config;
+    }
+
     /**
      * Send an sms message using the Twilio Service.
      *
